@@ -25,6 +25,10 @@ public class ArcProgressBarJava extends View {
      */
     private int mStrokeWidth = dp2px(8);
     /**
+     * 字体间距
+     * */
+    private int mMargin = dp2px(8);
+    /**
      * 圆弧开始的角度
      */
     private float mStartAngle = 135;
@@ -36,9 +40,15 @@ public class ArcProgressBarJava extends View {
      * 圆弧背景颜色
      */
     private int mArcBgColor = Color.YELLOW;
+
+
+
     /**
      * 最大的进度，用于计算进度与夹角的比例
      */
+    public float getMaxProgress() {
+        return mMaxProgress;
+    }
     private float mMaxProgress = 500;
     /**
      * 当前进度对应的起点角度到当前进度角度夹角的大小
@@ -84,14 +94,22 @@ public class ArcProgressBarJava extends View {
     private RectF mRectFTextArc;
     private Path mPath;
     private Rect mRectText;
+
+
+
     private String[] mTexts;
+
+    public void setTexts(String[] mTexts) {
+        this.size = mTexts.length-1;
+        this.mTexts = mTexts;
+    }
     private int mPadding;
     private float mCenterX, mCenterY; // 圆心坐标
     private Paint mPaint;
     private int mBackgroundColor;
     private int[] mBgColors;
     private int mRadius;
-    private float mLength1;
+    private int size;
     private float mLength2;
     public ArcProgressBarJava(Context context) {
         this(context, null);
@@ -117,6 +135,7 @@ public class ArcProgressBarJava extends View {
         mRectText = new Rect();
 
         mTexts = new String[]{"0","1", "2", "3", "4", "5", "6", "7", "8", "9","10"};
+        size = mTexts.length - 1;
         mBgColors = new int[]{ContextCompat.getColor(getContext(), R.color.color_red),
                 ContextCompat.getColor(getContext(), R.color.color_orange),
                 ContextCompat.getColor(getContext(), R.color.color_yellow),
@@ -142,8 +161,7 @@ public class ArcProgressBarJava extends View {
 
         mCenterX = mCenterY = getMeasuredWidth() / 2f;
 
-        mLength1 =
-        mLength2 = mPadding +  dp2px(10) +  dp2px(15);
+        mLength2 = mPadding +  mStrokeWidth+mMargin;
         mPaint.setTextSize(sp2px(15));
         mPaint.getTextBounds("0", 0, "0".length(), mRectText);
         mRectFTextArc.set(
@@ -164,6 +182,7 @@ public class ArcProgressBarJava extends View {
         mMaxProgress = array.getFloat(R.styleable.ArcProgressBar_arc_max_progress, 500f);
         mArcBgColor = array.getColor(R.styleable.ArcProgressBar_arc_bg_color, Color.YELLOW);
         mStrokeWidth = dp2px(array.getDimension(R.styleable.ArcProgressBar_arc_stroke_width, 12f));
+        mMargin = dp2px(array.getDimension(R.styleable.ArcProgressBar_text_margin_width,8f));
         mCurrentProgress = array.getFloat(R.styleable.ArcProgressBar_arc_progress, 300f);
         mProgressColor = array.getColor(R.styleable.ArcProgressBar_arc_progress_color, Color.RED);
         mFirstText = array.getString(R.styleable.ArcProgressBar_arc_first_text);
@@ -238,7 +257,7 @@ public class ArcProgressBarJava extends View {
             mPath.reset();
             mPath.addArc(
                     mRectFTextArc,
-                    mStartAngle + i * (mAngleSize / 10) - θ, // 正起始角度减去θ使文字居中对准长刻度
+                    mStartAngle + i * (mAngleSize / size) - θ, // 正起始角度减去θ使文字居中对准长刻度
                     mAngleSize
             );
             canvas.drawTextOnPath(mTexts[i], mPath, 0, 0, mPaint);
@@ -508,4 +527,10 @@ public class ArcProgressBarJava extends View {
         return bounds.height();
     }
 
+    public void setMargin(int margin) {
+        if (mMargin < 0) {
+            throw new IllegalArgumentException("margin value can not be less than 0");
+        }
+        this.mMargin = mMargin;
+    }
 }

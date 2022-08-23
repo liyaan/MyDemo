@@ -52,7 +52,12 @@ class MainActivity : AppCompatActivity() {
             toast("测试测试")
         }
         //
-        arcProgressBar.setProgress(150f)
+
+        val data:Array<String> = arrayOf("1","3","4","5","1","3","4","5","1","3","4","0")
+        val size: Int = data.size-1
+        val progress:Float = arcProgressBar.maxProgress/size.toFloat()*5
+        arcProgressBar.setProgress(progress)
+        arcProgressBar.setTexts(data)
 //        arcProgressBar.setFirstText("123")
 //        arcProgressBar.setSecondText("123")
     }

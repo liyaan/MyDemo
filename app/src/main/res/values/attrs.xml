@@ -5,6 +5,7 @@
         <attr name="arc_max_progress" format="float"/>
         <attr name="arc_bg_color" format="color"/>
         <attr name="arc_stroke_width" format="dimension"/>
+        <attr name="text_margin_width" format="dimension"/>
         <attr name="arc_progress" format="float"/>
         <attr name="arc_progress_color" format="color"/>
         <attr name="arc_first_text" format="string"/>
