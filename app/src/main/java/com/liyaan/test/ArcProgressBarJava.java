@@ -26,7 +26,7 @@ public class ArcProgressBarJava extends View {
     private int mStrokeWidth = dp2px(8);
     /**
      * 字体间距
-     * */
+     */
     private int mMargin = dp2px(8);
     /**
      * 圆弧开始的角度
@@ -42,13 +42,13 @@ public class ArcProgressBarJava extends View {
     private int mArcBgColor = Color.YELLOW;
 
 
-
     /**
      * 最大的进度，用于计算进度与夹角的比例
      */
     public float getMaxProgress() {
         return mMaxProgress;
     }
+
     private float mMaxProgress = 500;
     /**
      * 当前进度对应的起点角度到当前进度角度夹角的大小
@@ -96,13 +96,13 @@ public class ArcProgressBarJava extends View {
     private Rect mRectText;
 
 
-
     private String[] mTexts;
 
     public void setTexts(String[] mTexts) {
-        this.size = mTexts.length-1;
+        this.size = mTexts.length - 1;
         this.mTexts = mTexts;
     }
+
     private int mPadding;
     private float mCenterX, mCenterY; // 圆心坐标
     private Paint mPaint;
@@ -111,6 +111,7 @@ public class ArcProgressBarJava extends View {
     private int mRadius;
     private int size;
     private float mLength2;
+
     public ArcProgressBarJava(Context context) {
         this(context, null);
     }
@@ -134,7 +135,7 @@ public class ArcProgressBarJava extends View {
         mPath = new Path();
         mRectText = new Rect();
 
-        mTexts = new String[]{"0","1", "2", "3", "4", "5", "6", "7", "8", "9","10"};
+        mTexts = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
         size = mTexts.length - 1;
         mBgColors = new int[]{ContextCompat.getColor(getContext(), R.color.color_red),
                 ContextCompat.getColor(getContext(), R.color.color_orange),
@@ -143,6 +144,7 @@ public class ArcProgressBarJava extends View {
                 ContextCompat.getColor(getContext(), R.color.color_blue)};
         mBackgroundColor = mBgColors[0];
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -161,7 +163,7 @@ public class ArcProgressBarJava extends View {
 
         mCenterX = mCenterY = getMeasuredWidth() / 2f;
 
-        mLength2 = mPadding +  mStrokeWidth+mMargin;
+        mLength2 = mPadding + mStrokeWidth + mMargin;
         mPaint.setTextSize(sp2px(15));
         mPaint.getTextBounds("0", 0, "0".length(), mRectText);
         mRectFTextArc.set(
@@ -171,6 +173,7 @@ public class ArcProgressBarJava extends View {
                 getMeasuredWidth() - mLength2 - mRectText.height()
         );
     }
+
     /**
      * 设置初始化的参数
      *
@@ -182,7 +185,7 @@ public class ArcProgressBarJava extends View {
         mMaxProgress = array.getFloat(R.styleable.ArcProgressBar_arc_max_progress, 500f);
         mArcBgColor = array.getColor(R.styleable.ArcProgressBar_arc_bg_color, Color.YELLOW);
         mStrokeWidth = dp2px(array.getDimension(R.styleable.ArcProgressBar_arc_stroke_width, 12f));
-        mMargin = dp2px(array.getDimension(R.styleable.ArcProgressBar_text_margin_width,8f));
+        mMargin = dp2px(array.getDimension(R.styleable.ArcProgressBar_text_margin_width, 8f));
         mCurrentProgress = array.getFloat(R.styleable.ArcProgressBar_arc_progress, 300f);
         mProgressColor = array.getColor(R.styleable.ArcProgressBar_arc_progress_color, Color.RED);
         mFirstText = array.getString(R.styleable.ArcProgressBar_arc_first_text);
@@ -488,10 +491,12 @@ public class ArcProgressBarJava extends View {
         float density = getResources().getDisplayMetrics().density;
         return (int) (dp * density + 0.5f * (dp >= 0 ? 1 : -1));
     }
+
     private int sp2px(int sp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp,
                 Resources.getSystem().getDisplayMetrics());
     }
+
     /**
      * 设置动画
      *
@@ -534,3 +539,4 @@ public class ArcProgressBarJava extends View {
         this.mMargin = mMargin;
     }
 }
+

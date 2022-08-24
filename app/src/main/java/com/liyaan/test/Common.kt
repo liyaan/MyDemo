@@ -1,7 +1,12 @@
 package com.liyaan.test
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -62,20 +67,19 @@ fun ImageView.load(url:String,options: RequestOptions?=null){
 fun EditText.listener(before: (String) -> Unit = {}, change: (String) -> Unit = {}, after: (String) -> Unit = {}){
     this.addTextChangedListener(object:TextWatcher{
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            before(s.toString()+" be")
+            before(s.toString())
         }
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            change(s.toString()+" ch")
+            change(s.toString())
         }
         override fun afterTextChanged(s: Editable?) {
-            after(s.toString()+" after")
+            after(s.toString())
         }
     })
 }
 //点击事件的 全局控制
 fun View.clickView(click:(View)->Unit){
     this.setOnClickListener {
-
         click(it)
     }
 }
@@ -87,8 +91,86 @@ fun View.clickLongView(clickLong:(View)->Unit,result:Boolean = true){
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
+fun Activity.startCls(cls:Class<*>, map:HashMap<String,String>? = null,finish:Boolean = true){
+    val intent = Intent(this,cls)
+    map?.let {
+        map.forEach { (key, value) ->
+            intent.putExtra(key,value)
+        }
+    }
+    startActivity(intent)
+    if (!finish){
+        this.finish()
+    }
+}
+@RequiresApi(Build.VERSION_CODES.N)
+fun Activity.startActivityBundle(cls:Class<*>, bundle:Bundle ? = null,finish:Boolean = true){
+    val intent = Intent(this,cls)
+    bundle?.let {
+       intent.putExtras(it)
+    }
+    startActivity(intent)
+    if (!finish){
+        this.finish()
+    }
+}
+fun Activity.getValue(name:String):String?{
+    return this.intent.getStringExtra(name)
+}
+fun Activity.getBundleValue(name:String):Bundle?{
+    return this.intent.getBundleExtra(name)
+}
+const val isOpen:Boolean = true
+fun Any.logI(info: String, tag: String? = this.javaClass.name){
+    if (isOpen)
+        Log.i(this.javaClass.name,info)
+}
+fun Any.logD(info: String, tag: String? =  this.javaClass.name){
+    if (isOpen)
+        Log.d(this.javaClass.name,info)
+}
+fun Any.logE(info: String, tag: String? =  this.javaClass.name){
+    if (isOpen)
+        Log.e(tag,info)
+}
+//public static final Bitmap.Config  ALPHA_8
+//public static final Bitmap.Config  ARGB_4444
+//public static final Bitmap.Config  ARGB_8888
+//public static final Bitmap.Config  RGB_565
+fun ImageView.img(id:Int){
+    val options = BitmapFactory.Options()
+    options.inJustDecodeBounds = true
+    if (options.inPreferredConfig != Bitmap.Config.ARGB_4444){
+        options.inPreferredConfig = Bitmap.Config.ARGB_4444
+    }
 
+    BitmapFactory.decodeResource(this.resources,id,options)
+//计算缩放比
+    options.inSampleSize = calculateInSampleSize(options,200,300)
+    options.inJustDecodeBounds = false
 
+    this.setImageBitmap(BitmapFactory.decodeResource(this.resources,id,options))
+
+}
+private  fun calculateInSampleSize(
+    options: BitmapFactory.Options,
+    reqHeight: Int,
+    reqWidth: Int
+): Int {
+    val height = options.outHeight
+    val width = options.outWidth
+    var inSampleSize = 1
+    if (height > reqHeight || width > reqWidth) {
+        val halfHeight = height / 2
+        val halfWidth = width / 2
+        //计算缩放比，是2的指数
+        while (halfHeight / inSampleSize >= reqHeight && halfWidth / inSampleSize >= reqWidth) {
+            inSampleSize *= 2
+        }
+    }
+    return inSampleSize
+}
 /**
  * 判断事件出发时间间隔是否超过预定值
  * 如果小于间隔（目前是1000毫秒）则返回true，否则返回false
@@ -106,6 +188,7 @@ fun isFastDoubleClick(): Boolean {
 fun Context.toast(str:String){
     Toast.makeText(this,str,Toast.LENGTH_LONG).show()
 }
+
 //RequestOptions options = new RequestOptions()
 //.placeholder(R.mipmap.loading)                //加载成功之前占位图
 //.error(R.mipmap.loading)                    //加载错误之后的错误图
