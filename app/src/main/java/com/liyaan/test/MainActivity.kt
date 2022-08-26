@@ -3,6 +3,7 @@ package com.liyaan.test
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.net.ConnectivityManager
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         findViewById(R.id.testOne)
     }
     private val arcProgressBar:ArcProgressBarJava by lazy{
-        findViewById(R.id.arcProgressBar)
+        findViewById(R.id.arcProgressBar) //m aTv editUsername mOneselfEditPassWord  Base Api
     }
     private val imgUrl = "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8150c45f9b6c4e7aac783ed83e5c3db3~tplv-k3u1fbpfcp-zoom-crop-mark:3024:3024:3024:1702.awebp"
 //    private val mBootCompleteReceiver by lazy {
@@ -57,6 +58,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        BaseUrlHelper.getInstance().setUrlField("https://www.baidu.com/")
         mViewModel.getBanner()
         mViewModel.mBannerLiveData.observe(this) {
             it.forEach { banner ->
@@ -72,6 +75,10 @@ class MainActivity : AppCompatActivity() {
         })
         testBtn.clickView {
             toast("测试")
+            MvpSpUtils.saveCommit("base_url","https://www.wanandroid.com/")
+            Api.testRetrofit()
+
+            mViewModel.getBanner()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val map = HashMap<String,String>()
                 map["name"] = "mainActivity"
@@ -80,6 +87,10 @@ class MainActivity : AppCompatActivity() {
         }
         testBtnOne.clickView {
             toast("测试测试")
+            MvpSpUtils.saveCommit("base_url","http://baidu.com")
+            Api.testRetrofit()
+
+            mViewModel.getBanner()
         }
         //
 

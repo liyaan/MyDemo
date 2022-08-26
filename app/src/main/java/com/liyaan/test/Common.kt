@@ -3,6 +3,7 @@ package com.liyaan.test
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
@@ -10,6 +11,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -187,6 +189,17 @@ fun isFastDoubleClick(): Boolean {
 }
 fun Context.toast(str:String){
     Toast.makeText(this,str,Toast.LENGTH_LONG).show()
+}
+
+fun Context.dp2px(dp:Float):Int{
+    val density = resources.displayMetrics.density
+    return (dp * density + 0.5f * if (dp >= 0) 1 else -1).toInt()
+}
+fun Context.sp2px(sp:Int):Int{
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP, sp.toFloat(),
+        Resources.getSystem().displayMetrics
+    ).toInt()
 }
 
 //RequestOptions options = new RequestOptions()

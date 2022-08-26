@@ -254,6 +254,7 @@ public class ArcProgressBarJava extends View {
         for (int i = 0; i < mTexts.length; i++) {
             mPaint.getTextBounds(mTexts[i], 0, mTexts[i].length(), mRectText);
             // 粗略把文字的宽度视为圆心角2*θ对应的弧长，利用弧长公式得到θ，下面用于修正角度
+            //PI = 3.14159265358979323846 mRadius半径 mLength2字距离圆弧的距离 mRectText文本的块
             float θ = (float) (180 * mRectText.width() / 2 /
                     (Math.PI * (mRadius - mLength2 - mRectText.height())));
 
@@ -507,12 +508,9 @@ public class ArcProgressBarJava extends View {
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(start, target);
         valueAnimator.setDuration(mDuration);
         valueAnimator.setTarget(mCurrentAngleSize);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                mCurrentAngleSize = (float) valueAnimator.getAnimatedValue();
-                invalidate();
-            }
+        valueAnimator.addUpdateListener(valueAnimator1 -> {
+            mCurrentAngleSize = (float) valueAnimator1.getAnimatedValue();
+            invalidate();
         });
         valueAnimator.start();
     }
