@@ -23,6 +23,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.liyaan.test.orc.TesMainActivity
 import com.liyaan.test.setting.StatusBarUtil
 
 
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val map = HashMap<String,String>()
                 map["name"] = "mainActivity"
-                startCls(MainActivity2::class.java, map = map)
+                startCls(TesMainActivity::class.java, map = map)
             }
         }
         testBtnOne.clickView {
