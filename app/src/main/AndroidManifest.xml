@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.liyaan.test">
 
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission
         android:name="com.liyaan.test.SEND_BROADCASTRECEIVER"
@@ -18,6 +20,19 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
+    <!--位置信息  获取精准位置-->
+    <!--Android 6.0及后续版本，使用蓝牙扫描，还需要添加如下的权限，且该权限还需要在使用时动态申请-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"></uses-permission>
+    <!--蓝牙连接权限-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <!--蓝牙通讯权限-->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -30,7 +45,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        tools:ignore="CoarseFineLocation">
         <activity
             android:name=".MainActivity2"
             android:exported="true" />
