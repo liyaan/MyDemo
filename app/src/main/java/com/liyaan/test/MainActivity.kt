@@ -75,7 +75,11 @@ class MainActivity : AppCompatActivity() {
             Log.i("edit text be",it)
         })
         testBtn.clickView {
-            toast("测试")
+           if ( BuildConfig.TYPE==1){
+               toast("测试")
+               return@clickView
+           }
+
             MvpSpUtils.saveCommit("base_url","https://www.wanandroid.com/")
             Api.testRetrofit()
 
@@ -83,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 val map = HashMap<String,String>()
                 map["name"] = "mainActivity"
-                startCls(TesMainActivity::class.java, map = map)
+                startCls(MainActivity2::class.java, map = map)
             }
         }
         testBtnOne.clickView {

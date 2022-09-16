@@ -8,3 +8,66 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//task hello{
+//    doLast {
+//        println "hello word"
+//    }
+//}
+//task hello1{
+//    println "hello word one"
+//}
+//
+//task upper{
+//    String name = "Hello word"
+//    println "Original:"+name
+//    println "upper case:"+ name.toUpperCase()
+//}
+//
+//task count{
+//    4.times{
+//        println "$it"
+//    }
+//}
+//task helloFun{
+//    println "Hello word test!"
+//}
+//task intro(dependsOn: helloFun){
+//    println "I live gradle!!!!"
+//}
+//task funTest(dependsOn:'taskY'){
+//    println "funTest"
+//}
+//
+//task taskY{
+//    println "taskY"
+//}
+
+task myTask{
+    ext.version = "2.1.5"
+}
+//
+//task printVersion{
+//    println "version = $myTask.version"
+//}
+
+//task loadFile{
+//    def files = file("gradle.properties")
+//    files.each{
+//        println it
+//    }
+//}
+
+task distribution{
+    println "We build the zip with version=$myTask.version"
+}
+task release(dependsOn: 'distribution') {
+    println 'We release now'
+}
+gradle.taskGraph.whenReady {taskGraph ->
+    if (taskGraph.hasTask(release)) {
+        version = '1.0'
+    } else {
+        version = '1.0-SNAPSHOT'
+    }
+}

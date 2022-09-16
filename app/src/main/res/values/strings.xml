@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">第一个app的名字</string>
     <string name="user_name">帐号</string>
     <string name="password">密码</string>
     <string name="log_in">登录</string>

@@ -3,9 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/android/app/src/main/res/drawable/pro_bg.xml" value="0.1445" />
+        <entry key="..\:/android/app/src/main/res/layout/activity_ble_main.xml" value="0.14387031408308004" />
         <entry key="..\:/android/app/src/main/res/layout/activity_login.xml" value="0.1875" />
         <entry key="..\:/android/app/src/main/res/layout/activity_main.xml" value="0.17806484295845998" />
+        <entry key="..\:/android/app/src/main/res/layout/activity_main2.xml" value="0.36614583333333334" />
         <entry key="..\:/android/app/src/main/res/layout/activity_tesmain.xml" value="0.16875" />
+        <entry key="..\:/android/app/src/main/res/layout/layout_bt_list.xml" value="0.14437689969604864" />
+        <entry key="..\:/android/app/src/main/res/layout/layout_data_trans.xml" value="0.14437689969604864" />
+        <entry key="..\:/android/app/src/main/res/layout/layout_item_bt_device.xml" value="0.14437689969604864" />
+        <entry key="..\:/android/app/src/main/res/layout/layout_item_new_data.xml" value="0.14437689969604864" />
+        <entry key="..\:/android/app/src/main/res/menu/main.xml" value="0.16944444444444445" />
       </map>
     </option>
   </component>
