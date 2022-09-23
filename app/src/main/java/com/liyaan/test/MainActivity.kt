@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         BaseUrlHelper.getInstance().setUrlField("https://www.baidu.com/")
         mViewModel.getBanner()
         mViewModel.mBannerLiveData.observe(this) {
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             Log.i("edit text be",it)
         })
         testBtn.clickView {
-           if ( BuildConfig.TYPE==1){
+           if ( BuildConfig.TYPE==2){
                toast("测试")
                return@clickView
            }

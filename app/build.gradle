@@ -66,7 +66,7 @@ android {
     }
     flavorDimensions "default"
     productFlavors {
-        app1 {
+        app1_dug {
             applicationId "com.liyaan.test1"
             // 自动生成@string/app_name为demo
             resValue "string","app_name1","第一个app的名字"
@@ -77,11 +77,22 @@ android {
                                     app_round:"@mipmap/ic_launcher_round",app_name1:"第一个app的名字"
             ]
         }
+        app1_rele {
+            applicationId "com.liyaan.test1"
+            // 自动生成@string/app_name为demo
+            resValue "string","app_name1","第一个app的名字"
+            resValue "string","provider_name","com.liyaan.test1.fileprovider"
+            buildConfigField "int", "TYPE", "2"
+            manifestPlaceholders = [app_icon : "@mipmap/ic_launcher",
+                                    provider_name:"com.liyaan.test1.fileprovider",
+                                    app_round:"@mipmap/ic_launcher_round",app_name1:"第一个app的名字"
+            ]
+        }
         app2 {
             applicationId "com.liyaan.test2"
             resValue "string","app_name1","第二个app的名字"
             resValue "string","provider_name","com.liyaan.test2.fileprovider"
-            buildConfigField "int", "TYPE", "2"
+            buildConfigField "int", "TYPE", "3"
             manifestPlaceholders = [app_icon : "@mipmap/ic_launcher",
                                     provider_name : "com.liyaan.test2.fileprovider",
                                     app_round:"@mipmap/ic_launcher_round",app_name1:"第二个app的名字"]

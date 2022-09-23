@@ -19,7 +19,7 @@ class MainActivity2 : AppCompatActivity() ,Handler.Callback{
         // 循环方法1
         handler.postDelayed(object:Runnable{
             override fun run() {
-                handler.postDelayed(this, 50)
+                handler.postDelayed(this, 500)
                 handler.sendEmptyMessage(1)
             }
 
